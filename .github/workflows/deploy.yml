@@ -40,6 +40,7 @@ jobs:
         with:
           images: ${{ env.BACKEND_IMAGE }}
           tags: |
+            type=raw,value=main,enable={{is_default_branch}}
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
@@ -81,6 +82,7 @@ jobs:
         with:
           images: ${{ env.FRONTEND_IMAGE }}
           tags: |
+            type=raw,value=main,enable={{is_default_branch}}
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}

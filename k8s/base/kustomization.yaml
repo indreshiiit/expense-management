@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: expense-tracker
+
+resources:
+  - namespace.yaml
+  - secrets.yaml
+  - configmap.yaml
+  - nginx-configmap.yaml
+  - mongodb-pvc.yaml
+  - mongodb-deployment.yaml
+  - mongodb-service.yaml
+  - backend-deployment.yaml
+  - backend-service.yaml
+  - frontend-deployment.yaml
+  - frontend-service.yaml
+  - ingress.yaml
+  - cert-issuer.yaml

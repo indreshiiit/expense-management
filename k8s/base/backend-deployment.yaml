@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: expense-tracker
+  labels:
+    app: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: expense-tracker-backend:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+          name: http
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: expense-tracker-config
+              key: NODE_ENV
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: expense-tracker-config
+              key: PORT
+        - name: JWT_EXPIRE
+          valueFrom:
+            configMapKeyRef:
+              name: expense-tracker-config
+              key: JWT_EXPIRE
+        - name: CORS_ORIGIN
+          valueFrom:
+            configMapKeyRef:
+              name: expense-tracker-config
+              key: CORS_ORIGIN
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: expense-tracker-secrets
+              key: jwt-secret
+        - name: MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: expense-tracker-secrets
+              key: mongodb-uri
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3

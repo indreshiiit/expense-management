@@ -1,17 +1,14 @@
-import { Request, Response, NextFunction } from 'express';
-import { validationResult, ValidationChain } from 'express-validator';
+import { body } from 'express-validator';
 
-export const validate = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {
-  const errors = validationResult(req);
+export const expenseValidation = [
+  body('title').notEmpty().withMessage('Title is required'),
+  body('amount').isNumeric().withMessage('Amount must be a number'),
+  body('category').notEmpty().withMessage('Category is required'),
+  body('date').optional().isISO8601().withMessage('Invalid date format')
+];
 
-  if (!errors.isEmpty()) {
-    res.status(400).json({ errors: errors.array() });
-    return;
-  }
-
-  next();
-};
+export const userValidation = [
+  body('name').notEmpty().withMessage('Name is required'),
+  body('email').isEmail().withMessage('Invalid email'),
+  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
+];

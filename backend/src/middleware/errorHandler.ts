@@ -1,26 +1,21 @@
 import { Request, Response, NextFunction } from 'express';
-import { config } from '../config/env';
 
-interface ErrorResponse {
-  message: string;
-  stack?: string;
+interface ErrorWithStatus extends Error {
+  statusCode?: number;
 }
 
 export const errorHandler = (
-  err: Error,
-  req: Request,
+  err: ErrorWithStatus,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ): void => {
-  console.error('Error:', err);
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Internal Server Error';
 
-  const response: ErrorResponse = {
-    message: err.message || 'Internal server error',
-  };
-
-  if (config.nodeEnv === 'development') {
-    response.stack = err.stack;
-  }
-
-  res.status(500).json(response);
+  res.status(statusCode).json({
+    success: false,
+    message,
+    stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+  });
 };

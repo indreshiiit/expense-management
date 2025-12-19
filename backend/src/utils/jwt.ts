@@ -9,7 +9,7 @@ export const generateToken = (userId: string, email: string): string => {
   };
   
   const options: SignOptions = {
-    expiresIn: config.jwtExpire,
+    expiresIn: config.jwtExpire as string,
   };
   
   return jwt.sign(payload, config.jwtSecret, options);

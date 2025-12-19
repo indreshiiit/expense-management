@@ -1,5 +1,5 @@
-import { Expense } from '@models/Expense.js';
-import { MonthlySummary, CategoryStats } from '@types/index.js';
+import { Expense } from '../models/Expense';
+import { MonthlySummary, CategoryStats } from '../types';
 
 interface CreateExpenseData {
   userId: string;

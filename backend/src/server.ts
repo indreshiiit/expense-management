@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
-import { config } from '@config/env.js';
+import { config } from '@config/env';
 import { connectDatabase } from '@config/database.js';
 import { errorHandler } from '@middleware/errorHandler.js';
 import routes from '@routes/index.js';

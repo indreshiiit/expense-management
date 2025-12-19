@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { config } from '@config/env.js';
+import { config } from '../config/env';
 
 interface ErrorResponse {
   message: string;

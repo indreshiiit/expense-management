@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { config } from '@config/env.js';
-import { AuthRequest, TokenPayload } from '@types/index.js';
+import { config } from '../config/env';
+import { AuthRequest, TokenPayload } from '../types';
 
 export const authenticate = (
   req: AuthRequest,

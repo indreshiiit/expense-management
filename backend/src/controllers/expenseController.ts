@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { AuthRequest } from '@types/index.js';
+import { AuthRequest } from '../types';
 import {
   createExpense,
   getExpensesByUser,
@@ -8,7 +8,7 @@ import {
   deleteExpense,
   getMonthlySummary,
   getCategoryStats,
-} from '@services/expenseService.js';
+} from '../services/expenseService';
 
 export const create = async (req: AuthRequest, res: Response): Promise<void> => {
   try {

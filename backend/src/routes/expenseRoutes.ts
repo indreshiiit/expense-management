@@ -7,10 +7,10 @@ import {
   remove,
   summary,
   stats,
-} from '@controllers/expenseController.js';
-import { authenticate } from '@middleware/auth.js';
+} from '../controllers/expenseController.js';
+import { authenticate } from '../middleware/auth';
 import { expenseRules, dateRangeRules } from '@utils/validationRules.js';
-import { validate } from '@middleware/validator.js';
+import { validate } from '../middleware/validator.js';
 
 const router = Router();
 

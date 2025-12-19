@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { api } from '@services/api';
-import type { Expense, ExpenseFormData } from '@types/index';
+import type { Expense, ExpenseFormData } from '../types';
 
 export const useExpenses = (startDate?: string, endDate?: string) => {
   const [expenses, setExpenses] = useState<Expense[]>([]);

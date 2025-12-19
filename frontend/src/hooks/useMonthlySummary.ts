@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { api } from '@services/api';
-import type { MonthlySummary } from '@types/index';
+import type { MonthlySummary } from '../types';
 
 export const useMonthlySummary = (year: number, month: number) => {
   const [summary, setSummary] = useState<MonthlySummary | null>(null);

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { formatCurrency, formatDate, getCategoryColor, getCategoryIcon } from '@utils/helpers';
 import { ExpenseForm } from './ExpenseForm';
-import type { Expense, ExpenseFormData } from '@types/index';
+import type { Expense, ExpenseFormData } from '../types';
 
 interface ExpenseListProps {
   expenses: Expense[];

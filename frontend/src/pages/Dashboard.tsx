@@ -6,7 +6,7 @@ import { MonthlySummaryView } from '@components/MonthlySummaryView';
 import { useExpenses } from '@hooks/useExpenses';
 import { useMonthlySummary } from '@hooks/useMonthlySummary';
 import { formatCurrency } from '@utils/helpers';
-import type { ExpenseFormData } from '@types/index';
+import type { ExpenseFormData } from '../types';
 
 export const Dashboard = () => {
   const currentDate = new Date();
@@ -20,6 +20,14 @@ export const Dashboard = () => {
   const handleCreateExpense = async (data: ExpenseFormData) => {
     await createExpense(data);
     setShowAddModal(false);
+  };
+
+  const handleUpdateExpense = async (id: string, data: Partial<ExpenseFormData>) => {
+    await updateExpense(id, data);
+  };
+
+  const handleDeleteExpense = async (id: string) => {
+    await deleteExpense(id);
   };
 
   const totalExpenses = expenses.reduce((sum, exp) => sum + exp.amount, 0);
@@ -70,8 +78,8 @@ export const Dashboard = () => {
           ) : (
             <ExpenseList
               expenses={expenses}
-              onUpdate={updateExpense}
-              onDelete={deleteExpense}
+              onUpdate={handleUpdateExpense}
+              onDelete={handleDeleteExpense}
             />
           )}
         </div>

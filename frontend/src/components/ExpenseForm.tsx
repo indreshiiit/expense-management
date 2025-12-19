@@ -1,6 +1,6 @@
-import { useState, FormEvent, useEffect } from 'react';
+import { useState, FormEvent } from 'react';
 import { formatDateForInput } from '@utils/helpers';
-import type { Expense, ExpenseFormData, ExpenseCategory } from '@types/index';
+import type { Expense, ExpenseFormData, ExpenseCategory } from '../types';
 
 interface ExpenseFormProps {
   expense?: Expense;

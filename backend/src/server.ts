@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, Express } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
@@ -8,7 +8,7 @@ import { connectDatabase } from '@config/database.js';
 import { errorHandler } from '@middleware/errorHandler.js';
 import routes from '@routes/index.js';
 
-const app = express();
+const app: Express = express();
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -26,7 +26,7 @@ app.use(limiter);
 
 app.use('/api', routes);
 
-app.get('/health', (req, res) => {
+app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 

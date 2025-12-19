@@ -15,10 +15,12 @@ spec:
       labels:
         app: backend
     spec:
+      imagePullSecrets:
+      - name: ghcr-secret
       containers:
       - name: backend
-        image: expense-tracker-backend:latest
-        imagePullPolicy: IfNotPresent
+        image: ghcr.io/indreshiiit/expense-management/backend:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
           name: http

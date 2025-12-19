@@ -115,12 +115,35 @@ jobs:
           export KUBECONFIG=./kubeconfig
           kubectl config view
 
+      - name: Create namespace
+        env:
+          KUBECONFIG: ./kubeconfig
+        run: |
+          kubectl create namespace expense-tracker --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Create image pull secret
+        env:
+          KUBECONFIG: ./kubeconfig
+        run: |
+          kubectl create secret docker-registry ghcr-secret \
+            --docker-server=${{ env.REGISTRY }} \
+            --docker-username=${{ github.actor }} \
+            --docker-password=${{ secrets.GITHUB_TOKEN }} \
+            --namespace=expense-tracker \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Apply Kubernetes manifests
+        env:
+          KUBECONFIG: ./kubeconfig
+        run: |
+          kubectl apply -k k8s/base/
+
       - name: Update deployment images
         env:
           KUBECONFIG: ./kubeconfig
         run: |
-          kubectl set image deployment/backend backend=${{ env.BACKEND_IMAGE }}:sha-${GITHUB_SHA::7} -n expense-tracker
-          kubectl set image deployment/frontend frontend=${{ env.FRONTEND_IMAGE }}:sha-${GITHUB_SHA::7} -n expense-tracker
+          kubectl set image deployment/backend backend=${{ env.BACKEND_IMAGE }}:main -n expense-tracker
+          kubectl set image deployment/frontend frontend=${{ env.FRONTEND_IMAGE }}:main -n expense-tracker
 
       - name: Wait for rollout
         env:
@@ -134,3 +157,5 @@ jobs:
           KUBECONFIG: ./kubeconfig
         run: |
           kubectl get pods -n expense-tracker
+          kubectl get svc -n expense-tracker
+          kubectl get ingress -n expense-tracker

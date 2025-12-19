@@ -42,8 +42,8 @@ A full-stack personal expense tracking application built with the MERN stack and
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd expense-tracker
+git clone git@github.com:indreshiiit/expense-management.git
+cd expense-management
 ```
 
 ### 2. Install dependencies
@@ -64,7 +64,7 @@ Edit backend/.env:
 ```
 NODE_ENV=development
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/expense-tracker
+MONGODB_URI=mongodb://localhost:27017/expense-management
 JWT_SECRET=your-secure-secret-key
 JWT_EXPIRE=7d
 CORS_ORIGIN=http://localhost:5173
@@ -117,17 +117,17 @@ npm start
 ## API Endpoints
 
 ### Authentication
-- POST /api/auth/register - Register new user
-- POST /api/auth/login - Login user
+- POST /api/auth/register 
+- POST /api/auth/login 
 
 ### Expenses
-- GET /api/expenses - Get all expenses
-- POST /api/expenses - Create expense
-- GET /api/expenses/:id - Get single expense
-- PUT /api/expenses/:id - Update expense
-- DELETE /api/expenses/:id - Delete expense
-- GET /api/expenses/summary - Get monthly summary
-- GET /api/expenses/stats - Get category statistics
+- GET /api/expenses 
+- POST /api/expenses 
+- GET /api/expenses/:id 
+- PUT /api/expenses/:id 
+- DELETE /api/expenses/:id 
+- GET /api/expenses/summary 
+- GET /api/expenses/stats 
 
 ## Project Structure
 
@@ -174,25 +174,12 @@ Using Docker Compose:
 docker-compose up -d
 ```
 
-Access the application at http://localhost:3000
+Access the application at https://expense.premiertickets.biz/
 
 ### Kubernetes Deployment
 
-Deploy to Kubernetes cluster with domain expense.premiertickets.biz:
+Deployed on Kubernetes cluster with domain expense.premiertickets.biz:
 
-```bash
-make quick-start
-```
-
-Or manually:
-
-```bash
-./scripts/build-images.sh
-./scripts/update-secrets.sh
-./scripts/deploy.sh
-```
-
-For detailed Kubernetes deployment instructions, see [KUBERNETES_DEPLOYMENT.md](KUBERNETES_DEPLOYMENT.md).
 
 #### Available Make Commands
 
@@ -203,18 +190,5 @@ For detailed Kubernetes deployment instructions, see [KUBERNETES_DEPLOYMENT.md](
 - `make rollback` - Rollback deployments
 - `make clean` - Delete all resources
 
-### Production Checklist
 
-Before deploying to production:
 
-1. Update JWT_SECRET in secrets
-2. Configure DNS to point to your ingress IP
-3. Verify cert-manager is installed for SSL
-4. Review resource limits in deployment files
-5. Set up monitoring and alerting
-6. Configure backup strategy for MongoDB
-7. Enable RBAC and network policies
-
-## License
-
-MIT

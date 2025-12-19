@@ -110,22 +110,27 @@ jobs:
 
       - name: Configure kubectl
         run: |
-          echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+          echo "${{ secrets.KUBECONFIG }}" > kubeconfig
+          chmod 600 kubeconfig
           export KUBECONFIG=./kubeconfig
+          kubectl config view
 
       - name: Update deployment images
+        env:
+          KUBECONFIG: ./kubeconfig
         run: |
-          export KUBECONFIG=./kubeconfig
           kubectl set image deployment/backend backend=${{ env.BACKEND_IMAGE }}:sha-${GITHUB_SHA::7} -n expense-tracker
           kubectl set image deployment/frontend frontend=${{ env.FRONTEND_IMAGE }}:sha-${GITHUB_SHA::7} -n expense-tracker
 
       - name: Wait for rollout
+        env:
+          KUBECONFIG: ./kubeconfig
         run: |
-          export KUBECONFIG=./kubeconfig
           kubectl rollout status deployment/backend -n expense-tracker --timeout=5m
           kubectl rollout status deployment/frontend -n expense-tracker --timeout=5m
 
       - name: Verify deployment
+        env:
+          KUBECONFIG: ./kubeconfig
         run: |
-          export KUBECONFIG=./kubeconfig
           kubectl get pods -n expense-tracker

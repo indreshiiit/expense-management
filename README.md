@@ -212,36 +212,36 @@ All expense endpoints require authentication with JWT token in Authorization hea
 expense-management/
 ├── backend/
 │   ├── src/
-│   │   ├── config/          
-│   │   ├── controllers/     # Request handlers
-│   │   ├── middleware/      # Auth, validation, error handling
-│   │   ├── models/          # MongoDB schemas
-│   │   ├── routes/          # API route definitions
-│   │   ├── services/        # Business logic
-│   │   ├── types/           # TypeScript type definitions
-│   │   ├── utils/           # Helper functions
-│   │   └── server.ts        # Application entry point
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── types/
+│   │   ├── utils/
+│   │   └── server.ts
 │   ├── Dockerfile
 │   ├── package.json
 │   └── tsconfig.json
 ├── frontend/
 │   ├── src/
-│   │   ├── components/     
-│   │   ├── context/         
-│   │   ├── hooks/           
-│   │   ├── pages/           
-│   │   ├── services/       
-│   │   ├── styles/          
-│   │   ├── types/           
-│   │   ├── utils/           
-│   │   ├── App.tsx          
-│   │   └── main.tsx         
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── styles/
+│   │   ├── types/
+│   │   ├── utils/
+│   │   ├── App.tsx
+│   │   └── main.tsx
 │   ├── Dockerfile
 │   ├── nginx.conf
 │   ├── index.html
 │   ├── package.json
 │   └── tsconfig.json
-├── k8s/                     
+├── k8s/
 │   └── base/
 │       ├── backend-deployment.yaml
 │       ├── backend-service.yaml
@@ -255,7 +255,7 @@ expense-management/
 │       └── kustomization.yaml
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml       
+│       └── deploy.yml
 ├── docker-compose.yml
 └── package.json
 ```

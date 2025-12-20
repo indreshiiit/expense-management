@@ -15,19 +15,22 @@ export const Dashboard = () => {
   const [showAddModal, setShowAddModal] = useState(false);
 
   const { expenses, isLoading, createExpense, updateExpense, deleteExpense } = useExpenses();
-  const { summary } = useMonthlySummary(year, month);
+  const { summary, refetch: refetchSummary } = useMonthlySummary(year, month);
 
   const handleCreateExpense = async (data: ExpenseFormData) => {
     await createExpense(data);
+    await refetchSummary();
     setShowAddModal(false);
   };
 
   const handleUpdateExpense = async (id: string, data: Partial<ExpenseFormData>) => {
     await updateExpense(id, data);
+    await refetchSummary();
   };
 
   const handleDeleteExpense = async (id: string) => {
     await deleteExpense(id);
+    await refetchSummary();
   };
 
   const totalExpenses = expenses.reduce((sum, exp) => sum + exp.amount, 0);

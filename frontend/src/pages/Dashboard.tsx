@@ -13,6 +13,7 @@ export const Dashboard = () => {
   const [year, setYear] = useState(currentDate.getFullYear());
   const [month, setMonth] = useState(currentDate.getMonth() + 1);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const { expenses, isLoading, createExpense, updateExpense, deleteExpense, refetch: refetchExpenses } = useExpenses();
   const { summary, refetch: refetchSummary } = useMonthlySummary(year, month);
@@ -20,17 +21,20 @@ export const Dashboard = () => {
   const handleCreateExpense = async (data: ExpenseFormData) => {
     await createExpense(data);
     await Promise.all([refetchSummary(), refetchExpenses()]);
+    setRefreshKey(prev => prev + 1);
     setShowAddModal(false);
   };
 
   const handleUpdateExpense = async (id: string, data: Partial<ExpenseFormData>) => {
     await updateExpense(id, data);
     await Promise.all([refetchSummary(), refetchExpenses()]);
+    setRefreshKey(prev => prev + 1);
   };
 
   const handleDeleteExpense = async (id: string) => {
     await deleteExpense(id);
     await Promise.all([refetchSummary(), refetchExpenses()]);
+    setRefreshKey(prev => prev + 1);
   };
 
   const totalExpenses = expenses.reduce((sum, exp) => sum + exp.amount, 0);
@@ -62,6 +66,7 @@ export const Dashboard = () => {
         </div>
 
         <MonthlySummaryView
+          key={refreshKey}
           year={year}
           month={month}
           onYearChange={setYear}

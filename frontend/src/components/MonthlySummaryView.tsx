@@ -1,5 +1,5 @@
-import { useMonthlySummary } from '@hooks/useMonthlySummary';
 import { formatCurrency, getCategoryColor } from '@utils/helpers';
+import type { MonthlySummary } from '../types';
 import {
   PieChart,
   Pie,
@@ -16,6 +16,8 @@ import {
 interface MonthlySummaryViewProps {
   year: number;
   month: number;
+  summary: MonthlySummary | null;
+  isLoading: boolean;
   onYearChange: (year: number) => void;
   onMonthChange: (month: number) => void;
 }
@@ -38,11 +40,11 @@ const months = [
 export const MonthlySummaryView = ({
   year,
   month,
+  summary,
+  isLoading,
   onYearChange,
   onMonthChange,
 }: MonthlySummaryViewProps) => {
-  const { summary, isLoading } = useMonthlySummary(year, month);
-
   const years = Array.from({ length: 5 }, (_, i) => new Date().getFullYear() - i);
 
   if (isLoading) {

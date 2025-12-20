@@ -1,9 +1,9 @@
 import { format, parseISO } from 'date-fns';
 
 export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-IN', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'INR',
   }).format(amount);
 };
 
@@ -34,14 +34,14 @@ export const getCategoryColor = (category: string): string => {
 
 export const getCategoryIcon = (category: string): string => {
   const icons: Record<string, string> = {
-    food: '🍔',
-    transport: '🚗',
-    utilities: '💡',
-    entertainment: '🎬',
-    healthcare: '⚕️',
-    shopping: '🛍️',
-    education: '📚',
-    other: '📌',
+    food: 'F',
+    transport: 'T',
+    utilities: 'U',
+    entertainment: 'E',
+    healthcare: 'H',
+    shopping: 'S',
+    education: 'D',
+    other: 'O',
   };
 
   return icons[category] || icons.other;

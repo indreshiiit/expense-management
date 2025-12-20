@@ -68,7 +68,7 @@ export const MonthlySummaryView = ({
     <div className="card">
       <div className="card-header">
         <h2>Monthly Summary</h2>
-        <div style={{ display: 'flex', gap: '12px' }}>
+        <div className="month-year-selector">
           <select value={month} onChange={(e) => onMonthChange(parseInt(e.target.value))}>
             {months.map((m, i) => (
               <option key={i} value={i + 1}>
